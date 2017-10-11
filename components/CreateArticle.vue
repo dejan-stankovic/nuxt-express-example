@@ -33,7 +33,8 @@ export default {
 
     let articles = response.data
 
-    this.identifier = articles[articles.length - 1].identifier + 1
+    if (articles.length === 0) this.identifier = 1
+    if (articles.length > 0) this.identifier = articles[articles.length - 1].identifier + 1
   }
 }
 </script>

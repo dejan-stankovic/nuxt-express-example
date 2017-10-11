@@ -5,7 +5,7 @@ import * as Datastore from 'nedb-core'
 
 const router = Router()
 
-router.post('/administration/create', function(req, res, next) {
+router.post('/administration/create', function (req, res, next) {
   let db = new Datastore({
     filename: __dirname + '/../db/article',
     autoload: true
