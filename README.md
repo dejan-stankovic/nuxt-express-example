@@ -1,4 +1,4 @@
-# Next.js with Express.js example project
+# Nuxt.js with Express.js example project
 
 ## Build Setup
 
