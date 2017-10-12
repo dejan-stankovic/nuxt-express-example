@@ -1,20 +1,17 @@
 # Nuxt.js with Express.js example project
 
-## Build Setup
+This is an example project investigating Nuxt.js. It's is a simple Markdown blog.
 
-``` bash
-# install dependencies
-$ npm install # Or yarn install
+## Setup
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+### Install dependencies
 
-# build for production and launch server
-$ npm start
+```bash
+$ npm i
 ```
 
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+### Start development server
 
-## Backpack
-
-We use [backpack](https://github.com/palmerhq/backpack) to watch and build the application, so you can use the latest ES6 features (module syntax, async/await, etc.).
+```bash
+$ npm run dev
+```
