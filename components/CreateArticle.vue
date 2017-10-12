@@ -1,16 +1,22 @@
 <template>
 <div class="row">
   <div class="col">
-    <b-form-input
-      class="mb-3"
-      v-model="title"
-      type="text">
-    </b-form-input>
+    <div class="form-group">
+      <input
+        class="mb-3 form-control"
+        :value="article.title"
+        @input="setTitle($event.target.value)"
+        type="text" />
+    </div>
 
-    <b-form-textarea
-      v-model="text"
-      :rows="25">
-    </b-form-textarea>
+    <div class="form-group">
+      <textarea
+        class="form-control"
+        :value="article.text"
+        @input="setText($event.target.value)"
+        :rows="25">
+      </textarea>
+    </div>
   </div>
 
   <div class="col" :class="{loading: isLoading}">
@@ -21,20 +27,16 @@
 </template>
 
 <script>
-import axios from 'axios'
 import ArticleMixin from './mixins/ArticleMixin'
 
 export default {
   mixins: [ArticleMixin],
 
-  async created () {
-    let response = await axios
-      .get('http://localhost:3000/api/get-articles')
+  async mounted () {
+    this.$store.commit('Article/RESET_ARTICLE')
 
-    let articles = response.data
-
-    if (articles.length === 0) this.identifier = 1
-    if (articles.length > 0) this.identifier = articles[articles.length - 1].identifier + 1
+    let article = await this.$store.dispatch('Article/postArticle')
+    this.$store.commit('Article/SET_ARTICLE', article)
   }
 }
 </script>

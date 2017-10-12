@@ -11,9 +11,7 @@ router.get('/get-articles', function(req, res, next) {
     autoload: true
   })
 
-  db.find({}, (err, articles) => {
-    return res.json(articles)
-  })
+  db.find({}).sort({createdDate: -1}).exec((err, articles) => res.json(articles))
 })
 
 export default router

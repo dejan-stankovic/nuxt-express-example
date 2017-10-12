@@ -1,57 +1,56 @@
-import axios from 'axios'
-import {markdown} from 'markdown'
+import {mapMutations} from 'vuex'
+import {
+  markdown
+} from 'markdown'
 import debounce from 'lodash/debounce'
 
 export default {
   data () {
     return {
-      identifier: 0,
-      title: '',
-      text: '',
-      createdDate: new Date(),
       isLoading: false
     }
   },
 
   computed: {
+    article: {
+      get () {
+        return this.$store.state.Article.article
+      }
+    },
+
     formattedTitle: {
       get () {
-        if (this.title) return markdown.toHTML(`# ${this.title}`)
-        if (!this.title) return ''
+        return markdown.toHTML(`# ${this.article.title}`)
       }
     },
 
     formattedText: {
       get () {
-        if (this.text) return markdown.toHTML(this.text)
-        if (!this.text) return ''
+        return markdown.toHTML(this.article.text)
       }
     }
   },
 
   watch: {
-    title () {
-      this.isLoading = true
-      this.createArticle()
-    },
+    article: {
+      handler () {
+        this.isLoading = true
+        if (this.article.title || this.article.text) this.saveArticle()
+      },
 
-    text () {
-      this.isLoading = true
-      this.createArticle()
+      deep: true
     }
   },
 
   methods: {
-    createArticle: debounce(function () {
-      axios
-        .post('/api/administration/create', {
-          identifier: this.identifier,
-          title: this.title,
-          text: this.formattedText,
-          createdDate: this.createdDate
-        })
-
+    saveArticle: debounce(async function () {
+      await this.$store.dispatch('Article/patchArticle')
       this.isLoading = false
-    }, 2000)
+    }, 2000),
+
+    ...mapMutations({
+      setTitle: 'Article/SET_TITLE',
+      setText: 'Article/SET_TEXT'
+    })
   }
 }

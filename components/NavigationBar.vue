@@ -1,11 +1,19 @@
 <template>
 <div>
-  <b-nav>
-    <b-nav-item :to="{name: 'index'}">Home</b-nav-item>
-    <b-nav-item :to="{name: 'sign-in'}" v-if="!isUserAuthenticated">Sign-in</b-nav-item>
-    <b-nav-item :to="{name: 'administration-list'}" v-if="isUserAuthenticated">Administration</b-nav-item>
-    <b-nav-item :to="{name: 'administration-create'}" v-if="isUserAuthenticated">Create</b-nav-item>
-  </b-nav>
+  <ul class="nav">
+    <li class="nav-item">
+      <router-link class="nav-link active" :to="{name: 'index'}">Home</router-link>
+    </li>
+    <li class="nav-item">
+      <router-link class="nav-link" :to="{name: 'sign-in'}" v-if="!isUserAuthenticated">Sigin-in</router-link>
+    </li>
+    <li class="nav-item">
+      <router-link class="nav-link" :to="{name: 'administration-list'}" v-if="isUserAuthenticated">Administration</router-link>
+    </li>
+    <li class="nav-item">
+      <router-link class="nav-link" :to="{name: 'administration-create'}" v-if="isUserAuthenticated">Create</router-link>
+    </li>
+  </ul>
 </div>
 </template>
 

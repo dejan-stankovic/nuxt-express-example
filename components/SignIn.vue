@@ -5,15 +5,21 @@
 
   <div class="row">
     <div class="col">
-      <b-form-fieldset description="Enter your first name" label="First name" :label-size="1">
-        <b-form-input v-model="firstName" type="text"></b-form-input>
-      </b-form-fieldset>
+      <div class="form-group">
+        <label>First name</label>
+        <input v-model="firstName" class="form-control" type="text">
+      </div>
     </div>
 
     <div class="col">
-      <b-form-fieldset description="Enter your password" label="Password" :label-size="1">
-        <b-form-input @keyup.enter.native="signInPost" v-model="password" type="password"></b-form-input>
-      </b-form-fieldset>
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          v-model="password"
+          class="form-control"
+          type="password"
+          @keyup.enter="signInPost">
+      </div>
     </div>
   </div>
 </div>

@@ -11,21 +11,21 @@
     </thead>
     <tbody>
       <tr v-for="article in articles">
-        <td>{{ article.identifier }}</td>
+        <td>{{ article._id }}</td>
         <td>{{ article.title }}</td>
-        <td>{{ article.createdDate }}
+        <td>{{ article.createdDate | date }}
         <td>
-          <b-button variant="link" :to="{
+          <router-link class="btn btn-link" :to="{
             name: 'administration-edit-id',
             params: {
-              id: article.identifier
+              id: article._id
             }
           }">
             Edit
-          </b-button>
-          <b-button variant="link" @click="deleteArticle(article.identifier)">
+          </router-link>
+          <button type="button" class="btn btn-link" @click="deleteArticle(article._id)">
             Delete
-          </b-button>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -41,25 +41,31 @@ export default {
     this.getArticles()
   },
 
-  data () {
-    return {
-      articles: []
+  computed: {
+    articles: {
+      get () {
+        return this.$store.state.Articles.articles
+      },
+
+      set (articles) {
+        this.$store.commit('Articles/SET_ARTICLES', articles)
+      }
     }
   },
 
   methods: {
     async getArticles () {
-      let response = await axios
+      let {data} = await axios
         .get('http://localhost:3000/api/get-articles')
 
-      this.articles = response.data
+      this.articles = data
     },
 
-    async deleteArticle (identifier) {
+    async deleteArticle (id) {
       await axios
         .delete('http://localhost:3000/api/delete-article', {
           params: {
-            identifier
+            id
           }
         })
 

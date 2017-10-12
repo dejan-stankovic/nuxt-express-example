@@ -1,16 +1,22 @@
 <template>
 <div class="row">
   <div class="col">
-    <b-form-input
-      class="mb-3"
-      v-model="title"
-      type="text">
-    </b-form-input>
+    <div class="form-group">
+      <input
+        class="mb-3 form-control"
+        :value="article.title"
+        @input="setTitle($event.target.value)"
+        type="text">
+    </div>
 
-    <b-form-textarea
-      v-model="text"
-      :rows="25">
-    </b-form-textarea>
+    <div class="form-group">
+      <textarea
+        class="form-control"
+        :value="article.text"
+        @input="setText($event.target.value)"
+        :rows="25">
+      </textarea>
+    </div>
   </div>
 
   <div class="col" :class="{loading: isLoading}">
@@ -22,22 +28,9 @@
 
 <script>
 import ArticleMixin from './mixins/ArticleMixin'
-import striptags from 'striptags'
-import cloneDeep from 'lodash/cloneDeep'
 
 export default {
-  props: ['article'],
-
-  mixins: [ArticleMixin],
-
-  created () {
-    this.identifier = cloneDeep(this.article.identifier)
-    this.title = cloneDeep(this.article.title)
-
-    let text = cloneDeep(this.article.text)
-    this.text = striptags(text)
-    this.createdDate = this.article.createdDate
-  }
+  mixins: [ArticleMixin]
 }
 </script>
 

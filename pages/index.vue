@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <list-articles :articles="articles"></list-articles>
+    <list-articles></list-articles>
   </section>
 </section>
 </template>
@@ -10,10 +10,9 @@ import axios from 'axios'
 import ListArticles from '~/components/ListArticles'
 
 export default {
-  async asyncData ({ params }) {
-    let response = await axios.get('http://localhost:3000/api/get-articles')
-
-    return { articles: response.data }
+  async fetch ({ store }) {
+    let {data} = await axios.get('http://localhost:3000/api/get-articles')
+    store.commit('Articles/SET_ARTICLES', data)
   },
 
   head () {

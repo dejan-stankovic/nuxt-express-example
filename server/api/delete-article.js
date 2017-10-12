@@ -11,11 +11,11 @@ router.delete('/delete-article', function(req, res, next) {
     autoload: true
   })
 
-  let identifier = req.query.identifier
+  let id = req.query.id
 
   let article = db
     .remove({
-      identifier: parseInt(identifier)
+      _id: id
     }, error => {
       if (!error) res.sendStatus(200)
     })

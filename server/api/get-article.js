@@ -11,14 +11,12 @@ router.get('/get-article', function(req, res, next) {
     autoload: true
   })
 
-  let identifier = req.query.identifier
+  let id = req.query.id
 
   let article = db
     .findOne({
-      identifier: parseInt(identifier)
-    }, (error, article) => {
-      return res.json(article)
-    })
+      _id: id
+    }, (error, article) => res.json(article))
 })
 
 export default router
